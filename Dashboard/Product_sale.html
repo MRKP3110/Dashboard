@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">Product Sales Dashboard</h1>
+      <div class="flex space-x-4">
+        <button class="bg-blue-500 p-2 rounded hover:bg-blue-700">Home</button>
+        <button class="bg-blue-500 p-2 rounded hover:bg-blue-700">Categories</button>
+        <button class="bg-blue-500 p-2 rounded hover:bg-blue-700">Analysis</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Content -->
+  <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <!-- Chart 1: Bar Chart - Analysis -->
+    <div class="bg-white p-4 shadow-lg rounded-lg">
+      <h2 class="text-lg font-semibold mb-4">Sales Analysis</h2>
+      <canvas id="barChart"></canvas>
+      <div class="mt-4">
+        <table class="min-w-full table-auto text-sm text-gray-700">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2">Product</th>
+              <th class="px-4 py-2">Sales</th>
+              <th class="px-4 py-2">Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="px-4 py-2">Product A</td>
+              <td class="px-4 py-2">1,200</td>
+              <td class="px-4 py-2">$24,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Product B</td>
+              <td class="px-4 py-2">850</td>
+              <td class="px-4 py-2">$17,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Chart 2: Pie Chart - Categories of Buyers -->
+    <div class="bg-white p-4 shadow-lg rounded-lg">
+      <h2 class="text-lg font-semibold mb-4">Buyers Categories</h2>
+      <canvas id="pieChart"></canvas>
+      <div class="mt-4">
+        <table class="min-w-full table-auto text-sm text-gray-700">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2">Category</th>
+              <th class="px-4 py-2">Number of Buyers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="px-4 py-2">Kids</td>
+              <td class="px-4 py-2">300</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Younger</td>
+              <td class="px-4 py-2">500</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Older</td>
+              <td class="px-4 py-2">200</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Chart 3: World Sales Chart -->
+    <div class="bg-white p-4 shadow-lg rounded-lg">
+      <h2 class="text-lg font-semibold mb-4">World Sales</h2>
+      <canvas id="worldChart"></canvas>
+      <div class="mt-4">
+        <table class="min-w-full table-auto text-sm text-gray-700">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2">Region</th>
+              <th class="px-4 py-2">Sales</th>
+              <th class="px-4 py-2">Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="px-4 py-2">North America</td>
+              <td class="px-4 py-2">500,000</td>
+              <td class="px-4 py-2">$50,000,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Europe</td>
+              <td class="px-4 py-2">300,000</td>
+              <td class="px-4 py-2">$30,000,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Asia</td>
+              <td class="px-4 py-2">400,000</td>
+              <td class="px-4 py-2">$40,000,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts for Charts -->
+  <script>
+    // Bar Chart
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['Product A', 'Product B'],
+        datasets: [{
+          label: 'Sales',
+          data: [1200, 850],
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+    // Pie Chart
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: ['Kids', 'Younger', 'Older'],
+        datasets: [{
+          data: [300, 500, 200],
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+    // World Sales Chart
+    const ctxWorld = document.getElementById('worldChart').getContext('2d');
+    new Chart(ctxWorld, {
+      type: 'line',
+      data: {
+        labels: ['North America', 'Europe', 'Asia'],
+        datasets: [{
+          label: 'Sales',
+          data: [500000, 300000, 400000],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+  </script>
+
+</body>
+</html>
